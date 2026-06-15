@@ -3,6 +3,7 @@ import TypewriterCode from '../components/TypewriterCode.jsx'
 import FeatureCard from '../components/FeatureCard.jsx'
 import PipelineDiagram from '../components/PipelineDiagram.jsx'
 import Reveal from '../components/Reveal.jsx'
+import Seo from '../components/Seo.jsx'
 import { GlobeIcon, LayersIcon, ShieldIcon } from '../components/icons.jsx'
 
 const features = [
@@ -32,6 +33,11 @@ const stats = [
 export default function Home() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Seo
+        title="MyanCode · မြန်မာကုဒ် — Burmese Programming Language"
+        description="Write code in Burmese. MyanCode is a natural language programming language for Myanmar university students. Free, offline, multi-paradigm."
+        path="/"
+      />
       {/* Hero */}
       <section className="relative grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
         {/* ambient glow blobs */}

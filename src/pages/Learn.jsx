@@ -1,7 +1,90 @@
 import { useState } from 'react'
 import { useParams, NavLink, Link } from 'react-router-dom'
 import Markdown from '../components/Markdown.jsx'
+import Seo from '../components/Seo.jsx'
 import { BookIcon, ChevronDownIcon } from '../components/icons.jsx'
+
+// Per-topic SEO. The /learn index uses `learnIndexSeo`; each lesson maps by slug.
+const learnIndexSeo = {
+  title: 'Learn MyanCode · မြန်မာကုဒ်',
+  description:
+    'Step-by-step guide to learning MyanCode — the Burmese programming language. Covers variables, loops, functions, arrays, and objects.',
+}
+
+const seoBySlug = {
+  installation: {
+    title: 'Installation — MyanCode',
+    description: 'Install MyanCode via npm in one command. Works on Windows, macOS, and Linux. Requires Node.js v18+.',
+  },
+  'hello-world': {
+    title: 'Hello World — MyanCode',
+    description: 'Write your first MyanCode program in Burmese. Print text to the screen with ပြောပါ.',
+  },
+  running: {
+    title: 'Running Your First Program — MyanCode',
+    description: 'Run a MyanCode program from the command line and see your Burmese code come to life.',
+  },
+  variables: {
+    title: 'Variables & Assignment — MyanCode',
+    description: 'Learn how to store and reuse values in MyanCode using Burmese syntax.',
+  },
+  'print-input': {
+    title: 'Print & Input — MyanCode',
+    description: 'Output values with ပြောပါ and read user input with ထည့်သွင်းပါ in MyanCode.',
+  },
+  comments: {
+    title: 'Comments — MyanCode',
+    description: 'Add notes to your MyanCode programs using မှတ်ချက်. Comments are ignored at runtime.',
+  },
+  'if-else': {
+    title: 'If / Else-if / Else — MyanCode',
+    description: 'Write conditional logic in Burmese using အကယ်၍, သို့မဟုတ်အကယ်၍, and မဟုတ်ရင်.',
+  },
+  'while-loop': {
+    title: 'While Loop — MyanCode',
+    description: 'Repeat code while a condition is true using the သောကာလ keyword in MyanCode.',
+  },
+  'for-loop': {
+    title: 'For Loop — MyanCode',
+    description: 'Repeat code a fixed number of times using အကြိမ် ပြုလုပ်ပါ in MyanCode.',
+  },
+  'foreach-loop': {
+    title: 'For-Each Loop — MyanCode',
+    description: 'Walk through every item in an array using တစ်ခုစီအတွက် in MyanCode.',
+  },
+  'defining-functions': {
+    title: 'Defining Functions — MyanCode',
+    description: 'Create reusable blocks of code with လုပ်ဆောင်ချက် in MyanCode.',
+  },
+  'calling-functions': {
+    title: 'Calling Functions — MyanCode',
+    description: 'Run a function with ကိုခေါ်ပါ and pass arguments in MyanCode.',
+  },
+  'return-values': {
+    title: 'Return Values — MyanCode',
+    description: 'Return a value from a function with ပြန်ပေးပါ in MyanCode.',
+  },
+  'functions-as-values': {
+    title: 'Functions as Values — MyanCode',
+    description: 'Store and pass functions as values in MyanCode — the functional programming side.',
+  },
+  arrays: {
+    title: 'Arrays — MyanCode',
+    description: 'Create and use lists of values with စာရင်း ဖန်တီးပါ in MyanCode.',
+  },
+  'array-push': {
+    title: 'Array Push — MyanCode',
+    description: 'Add items to a list with ထဲသို့ထည့်ပါ in MyanCode.',
+  },
+  objects: {
+    title: 'Objects (OOP) — MyanCode',
+    description: 'Bundle data and behaviour into objects with အရာဝတ္ထု ဖန်တီးပါ in MyanCode.',
+  },
+  'property-access': {
+    title: 'Property Access — MyanCode',
+    description: 'Read object properties and call methods using the ၏ marker in MyanCode.',
+  },
+}
 
 // Eagerly import every learn topic as a raw markdown string.
 const modules = import.meta.glob('../content/learn/*.md', {
@@ -108,8 +191,14 @@ export default function Learn() {
   const prev = idx > 0 ? flat[idx - 1] : null
   const next = idx < flat.length - 1 ? flat[idx + 1] : null
 
+  // The /learn index (no valid slug) gets the overview meta; lessons get their own.
+  const onIndex = !slug || !content[slug]
+  const seo = onIndex ? learnIndexSeo : seoBySlug[slug] || learnIndexSeo
+  const seoPath = onIndex ? '/learn' : `/learn/${slug}`
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Seo title={seo.title} description={seo.description} path={seoPath} />
       <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-12">
         {/* Mobile section toggle */}
         <div className="border-b border-neutral-200 py-3 dark:border-neutral-800 lg:hidden">

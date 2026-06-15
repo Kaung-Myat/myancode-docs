@@ -1,4 +1,5 @@
 import CodeBlock from '../components/CodeBlock.jsx'
+import Seo from '../components/Seo.jsx'
 import { CheckCircleIcon, GlobeIcon } from '../components/icons.jsx'
 
 function Badge({ children }) {
@@ -40,6 +41,11 @@ function Card({ tag, title, subtitle, children, badge, featured }) {
 export default function Download() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <Seo
+        title="Download MyanCode · မြန်မာကုဒ်"
+        description="Install MyanCode via npm, use the web IDE, or clone from GitHub. Free and open source."
+        path="/download"
+      />
       <div className="mx-auto max-w-2xl text-center">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           <span className="text-neutral-900 dark:text-neutral-50">Download </span>
